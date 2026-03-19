@@ -1,9 +1,9 @@
 ../Core/Src/main.c:71:6:HAL_GPIO_EXTI_Callback	16	static
-../Core/Src/main.c:80:5:main	88	static
-../Core/Src/main.c:156:6:pinGrid	24	static
-../Core/Src/main.c:265:6:pinOutput	48	static
-../Core/Src/main.c:280:6:pinInput	48	static
-../Core/Src/main.c:291:6:highZAll	8	static
-../Core/Src/main.c:303:6:SystemClock_Config	64	static
-../Core/Src/main.c:342:13:MX_GPIO_Init	32	static
-../Core/Src/main.c:382:6:Error_Handler	8	static,ignoring_inline_asm
+../Core/Src/main.c:80:5:main	80	static
+../Core/Src/main.c:139:6:pinGrid	24	static
+../Core/Src/main.c:248:6:pinOutput	48	static
+../Core/Src/main.c:263:6:pinInput	48	static
+../Core/Src/main.c:274:6:highZAll	8	static
+../Core/Src/main.c:286:6:SystemClock_Config	64	static
+../Core/Src/main.c:325:13:MX_GPIO_Init	32	static
+../Core/Src/main.c:365:6:Error_Handler	8	static,ignoring_inline_asm

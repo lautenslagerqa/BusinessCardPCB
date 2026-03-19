@@ -102,24 +102,6 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
-  /*## Configure the Wake up timer ###########################################*/
-    /*  RTC Wake-up Interrupt Generation:
-        Wake-up Time Base = (RTC_WAKEUPCLOCK_RTCCLK_DIV /(LSI))
-        ==> WakeUpCounter = Wake-up Time / Wake-up Time Base
-
-        To configure the wake up timer to 20s the WakeUpCounter is set to 0xA017:
-          RTC_WAKEUPCLOCK_RTCCLK_DIV = RTCCLK_Div16 = 16
-          Wake-up Time Base = 16 /(32KHz) = 0.0005 seconds
-          ==> WakeUpCounter = ~10s/0.0005s = 20000 = 0x4E20 */
-
-
-    /****** Suspend the Ticks before entering the STOP mode or else this can wake the device up **********/
-    HAL_SuspendTick();
-
-    HAL_PWR_EnableSleepOnExit();
-
-    /* Enter Stop Mode */
-    HAL_PWR_EnterSTOPMode(PWR_MAINREGULATOR_ON, PWR_STOPENTRY_WFI);
 
 
 
@@ -135,14 +117,15 @@ int main(void)
   uint8_t h[5][4] = {{1,0,0,1}, {1,0,0,1}, {1,1,1,1}, {1,0,0,1}, {1,0,0,1}};
   uint8_t i[5][4] = {{1,1,1,1}, {0,1,1,0}, {0,1,1,0}, {0,1,1,0}, {1,1,1,1}};
   uint8_t e[5][4] = {{0,1,1,0}, {0,1,1,0}, {0,1,1,0}, {0,0,0,0}, {0,1,1,0}};
+  for (int x = 0; x < 6; x++) {
+  		pinGrid(h,20);
+  		pinGrid(i,20);
+  		pinGrid(e,20);
+  	}
   //bool pressed = false;
   while (1)
   {
-	for (int x = 0; x < 6; x++) {
-		pinGrid(h,20);
-		pinGrid(i,20);
-		pinGrid(e,20);
-	}
+
   }
 
 //    /* USER CODE END WHILE */
