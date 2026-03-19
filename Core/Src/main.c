@@ -102,15 +102,31 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   //int i = 1;
   highZAll();
-  uint8_t h[5][4] = {{1,0,0,1}, {1,0,0,1}, {1,1,1,1}, {1,0,0,1}, {1,0,0,1}};
-  uint8_t i[5][4] = {{1,1,1,1}, {0,1,1,0}, {0,1,1,0}, {0,1,1,0}, {1,1,1,1}};
-  uint8_t e[5][4] = {{0,1,1,0}, {0,1,1,0}, {0,1,1,0}, {0,0,0,0}, {0,1,1,0}};
+  uint8_t h[5][4] = {{1,0,0,1},
+		  	  	  	 {1,0,0,1},
+					 {1,1,1,1},
+					 {1,0,0,1},
+					 {1,0,0,1}};
+
+  uint8_t i[5][4] = {{1,1,1,1},
+		  	  	  	 {0,1,1,0},
+					 {0,1,1,0},
+					 {0,1,1,0},
+					 {1,1,1,1}};
+
+  uint8_t e[5][4] = {{0,1,1,0},
+		  	  	     {0,1,1,0},
+					 {0,1,1,0},
+					 {0,0,0,0},
+					 {0,1,1,0}};
+
   for (int x = 0; x < 6; x++) {
   		pinGrid(h,20);
   		pinGrid(i,20);
   		pinGrid(e,20);
   	}
   EnterSleepMode();
+  //HAL_PWR_EnterSTANDBYMode();
   //bool pressed = false;
   while (1)
   {
@@ -132,7 +148,7 @@ void EnterSleepMode(void)
   HAL_SuspendTick();
 
   /* Enter Sleep Mode, wake up on next interrupt */
-  HAL_PWR_EnterSLEEPMode(PWR_MAINREGULATOR_ON, PWR_SLEEPENTRY_WFI);
+  HAL_PWR_EnterSTOPMode(PWR_MAINREGULATOR_ON, PWR_SLEEPENTRY_WFI);
 
   /* Resume Tick interrupt */
   HAL_ResumeTick();
