@@ -52,7 +52,7 @@ void highZAll(void);
 void pinInput(uint16_t GPIO_Pin);
 void pinOutput(uint16_t GPIO_Pin);
 void pinGrid(uint8_t grid[5][4], int loop);
-void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin);
+void EnterSleepMode(void);
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
@@ -67,16 +67,7 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin);
   * @retval int
   */
 
-// SleepOnExit will be disabled when the MCU is wake up by EXTI
-void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
-{
-  if(GPIO_Pin == GPIO_PIN_2)
-  {
-	  SystemClock_Config ();
-	  HAL_ResumeTick();
-	  HAL_PWR_DisableSleepOnExit();
-  }
-}
+
 int main(void)
 {
 
@@ -102,10 +93,7 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
-
-
-
-
+  //ConfigureWakeupButton();
 
   /* USER CODE BEGIN 2 */
   /* USER CODE END 2 */
@@ -122,6 +110,7 @@ int main(void)
   		pinGrid(i,20);
   		pinGrid(e,20);
   	}
+  EnterSleepMode();
   //bool pressed = false;
   while (1)
   {
@@ -134,6 +123,19 @@ int main(void)
 
 
   /* USER CODE END 3 */
+}
+
+
+void EnterSleepMode(void)
+{
+  /* Suspend Tick increment to prevent wakeup by Systick interrupt */
+  HAL_SuspendTick();
+
+  /* Enter Sleep Mode, wake up on next interrupt */
+  HAL_PWR_EnterSLEEPMode(PWR_MAINREGULATOR_ON, PWR_SLEEPENTRY_WFI);
+
+  /* Resume Tick interrupt */
+  HAL_ResumeTick();
 }
 
 void pinGrid(uint8_t grid[5][4], int loops) {
