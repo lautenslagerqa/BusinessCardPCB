@@ -22,6 +22,7 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #define DELAY_TIME 3
+#define LOOP_NUM 30
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -121,9 +122,9 @@ int main(void)
 					 {0,1,1,0}};
 
   for (int x = 0; x < 6; x++) {
-  		pinGrid(h,20);
-  		pinGrid(i,20);
-  		pinGrid(e,20);
+  		pinGrid(h,LOOP_NUM);
+  		pinGrid(i,LOOP_NUM);
+  		pinGrid(e,LOOP_NUM);
   	}
   EnterSleepMode();
   //HAL_PWR_EnterSTANDBYMode();

@@ -27,25 +27,25 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   ALLOC
  11 .ARM.attributes 00000028  00000000  00000000  0000300c  2**0
                   CONTENTS, READONLY
- 12 .debug_info   00003369  00000000  00000000  00003034  2**0
+ 12 .debug_info   0000336c  00000000  00000000  00003034  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 13 .debug_abbrev 00001031  00000000  00000000  0000639d  2**0
+ 13 .debug_abbrev 0000101f  00000000  00000000  000063a0  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 14 .debug_aranges 00000468  00000000  00000000  000073d0  2**3
+ 14 .debug_aranges 00000468  00000000  00000000  000073c0  2**3
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 15 .debug_rnglists 0000032a  00000000  00000000  00007838  2**0
+ 15 .debug_rnglists 0000032a  00000000  00000000  00007828  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 16 .debug_macro  0001178b  00000000  00000000  00007b62  2**0
+ 16 .debug_macro  00011791  00000000  00000000  00007b52  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 17 .debug_line   000056ae  00000000  00000000  000192ed  2**0
+ 17 .debug_line   000056ae  00000000  00000000  000192e3  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 18 .debug_str    0006bb92  00000000  00000000  0001e99b  2**0
+ 18 .debug_str    0006bb9e  00000000  00000000  0001e991  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 19 .comment      00000043  00000000  00000000  0008a52d  2**0
+ 19 .comment      00000043  00000000  00000000  0008a52f  2**0
                   CONTENTS, READONLY
- 20 .debug_frame  00000de8  00000000  00000000  0008a570  2**2
+ 20 .debug_frame  00000de8  00000000  00000000  0008a574  2**2
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 21 .debug_line_str 00000054  00000000  00000000  0008b358  2**0
+ 21 .debug_line_str 00000054  00000000  00000000  0008b35c  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
 
 Disassembly of section .text:
@@ -267,7 +267,7 @@ int main(void)
   //int i = 1;
   highZAll();
  8000232:	f000 f9b3 	bl	800059c <highZAll>
-  uint8_t h[5][4] = {{1,0,0,1}, {1,0,0,1}, {1,1,1,1}, {1,0,0,1}, {1,0,0,1}};
+  uint8_t h[5][4] = {{1,0,0,1},
  8000236:	2328      	movs	r3, #40	@ 0x28
  8000238:	18fb      	adds	r3, r7, r3
  800023a:	4a18      	ldr	r2, [pc, #96]	@ (800029c <main+0x7c>)
@@ -275,7 +275,12 @@ int main(void)
  800023e:	c313      	stmia	r3!, {r0, r1, r4}
  8000240:	ca03      	ldmia	r2!, {r0, r1}
  8000242:	c303      	stmia	r3!, {r0, r1}
-  uint8_t i[5][4] = {{1,1,1,1}, {0,1,1,0}, {0,1,1,0}, {0,1,1,0}, {1,1,1,1}};
+		  	  	  	 {1,0,0,1},
+					 {1,1,1,1},
+					 {1,0,0,1},
+					 {1,0,0,1}};
+
+  uint8_t i[5][4] = {{1,1,1,1},
  8000244:	2314      	movs	r3, #20
  8000246:	18fb      	adds	r3, r7, r3
  8000248:	4a15      	ldr	r2, [pc, #84]	@ (80002a0 <main+0x80>)
@@ -283,32 +288,42 @@ int main(void)
  800024c:	c313      	stmia	r3!, {r0, r1, r4}
  800024e:	ca03      	ldmia	r2!, {r0, r1}
  8000250:	c303      	stmia	r3!, {r0, r1}
-  uint8_t e[5][4] = {{0,1,1,0}, {0,1,1,0}, {0,1,1,0}, {0,0,0,0}, {0,1,1,0}};
+		  	  	  	 {0,1,1,0},
+					 {0,1,1,0},
+					 {0,1,1,0},
+					 {1,1,1,1}};
+
+  uint8_t e[5][4] = {{0,1,1,0},
  8000252:	003b      	movs	r3, r7
  8000254:	4a13      	ldr	r2, [pc, #76]	@ (80002a4 <main+0x84>)
  8000256:	ca13      	ldmia	r2!, {r0, r1, r4}
  8000258:	c313      	stmia	r3!, {r0, r1, r4}
  800025a:	ca03      	ldmia	r2!, {r0, r1}
  800025c:	c303      	stmia	r3!, {r0, r1}
+		  	  	     {0,1,1,0},
+					 {0,1,1,0},
+					 {0,0,0,0},
+					 {0,1,1,0}};
+
   for (int x = 0; x < 6; x++) {
  800025e:	2300      	movs	r3, #0
  8000260:	63fb      	str	r3, [r7, #60]	@ 0x3c
  8000262:	e013      	b.n	800028c <main+0x6c>
-  		pinGrid(h,20);
+  		pinGrid(h,LOOP_NUM);
  8000264:	2328      	movs	r3, #40	@ 0x28
  8000266:	18fb      	adds	r3, r7, r3
- 8000268:	2114      	movs	r1, #20
+ 8000268:	211e      	movs	r1, #30
  800026a:	0018      	movs	r0, r3
  800026c:	f000 f82a 	bl	80002c4 <pinGrid>
-  		pinGrid(i,20);
+  		pinGrid(i,LOOP_NUM);
  8000270:	2314      	movs	r3, #20
  8000272:	18fb      	adds	r3, r7, r3
- 8000274:	2114      	movs	r1, #20
+ 8000274:	211e      	movs	r1, #30
  8000276:	0018      	movs	r0, r3
  8000278:	f000 f824 	bl	80002c4 <pinGrid>
-  		pinGrid(e,20);
+  		pinGrid(e,LOOP_NUM);
  800027c:	003b      	movs	r3, r7
- 800027e:	2114      	movs	r1, #20
+ 800027e:	211e      	movs	r1, #30
  8000280:	0018      	movs	r0, r3
  8000282:	f000 f81f 	bl	80002c4 <pinGrid>
   for (int x = 0; x < 6; x++) {
